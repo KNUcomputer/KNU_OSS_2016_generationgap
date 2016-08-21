@@ -50,7 +50,7 @@ class GestureListener extends Listener {
 
 			Gesture gesture = gestures.get(i);
 
-			switch (gesture.type()) {
+			switch (gesture.type()) {//Depend on the gesture type.
 
 			case TYPE_CIRCLE:
 				CircleGesture circle = new CircleGesture(gesture);
@@ -70,19 +70,15 @@ class GestureListener extends Listener {
 					circleStop = 2;
 				}
 
-				if (circleStart == 1 && circleStop == 2) {
+				if (circleStart == 1 && circleStop == 2) { //if gesture one circle
 					if (clockwiseness.equals("clockwise")) {
-						// gestureType = "clockWise";
-						// System.out.println("clockWise");
 						cnt++;
 
 					} else {
-						// gestureType = "counterClockWise";
-						// System.out.println("counterClockWise");
 
 					}
-					circleStart = 0;
-					circleStop = 0;
+					circleStart = 0;//initialize
+					circleStop = 0;//initialize
 				}
 
 				break;
@@ -99,12 +95,12 @@ class GestureListener extends Listener {
 					swipeStop = 2;
 				}
 
-				if (swipeStart == 1 && swipeStop == 2) {
+				if (swipeStart == 1 && swipeStop == 2) {//if gesture one swipe
 
-					if (cnt >= 10000) {
-						// System.out.println("계절로 돌아가는곳");
-						cnt = 0;
-						win.change("panel2");
+					if (cnt >= 10000) {// if 'cnt' is very huge number
+						
+						cnt = 0; //initialize
+						win.change("panel2"); // change to season selection screen
 					}
 
 					swipeStart = 0;
@@ -113,10 +109,10 @@ class GestureListener extends Listener {
 				}
 				break;
 
-			case TYPE_SCREEN_TAP:
+			case TYPE_SCREEN_TAP: // not use
 
 				ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
-				// System.out.println("Screen Tap");
+
 
 				break;
 
@@ -124,31 +120,27 @@ class GestureListener extends Listener {
 				KeyTapGesture keyTap = new KeyTapGesture(gesture);
 				System.out.println("Key Tap");
 				cnt++;
-				// type = "Key Tap";
 				break;
 
 			}
 
-			if (cnt > 2 && cnt < 1000) {
+			if (cnt > 2 && cnt < 1000) {// not very huge number
+				//Depending on your number of fingers,
+				//switch to the appropriate season screen.
 
-				// System.out.println("\nFinger count: " +
-				// frame.fingers().extended().count());
+				cnt = 10000; //change 'cnt' to very huge number
 
-				cnt = 10000;
-
-				if (frame.fingers().extended().count() == 1) {
-
+				if (frame.fingers().extended().count() == 1) {//change to screen "spring"
 					win.change("spring");
-				} else if (frame.fingers().extended().count() == 2) {
+				} else if (frame.fingers().extended().count() == 2) {//change to screen "summer"
 					win.change("summer");
-				} else if (frame.fingers().extended().count() == 3) {
+				} else if (frame.fingers().extended().count() == 3) {//change to screen "autumn"
 
 					win.change("autumn");
-				} else if (frame.fingers().extended().count() == 4) {
+				} else if (frame.fingers().extended().count() == 4) {//change to screen "winter"
 
 					win.change("winter");
 				}
-
 			}
 		}
 
@@ -166,15 +158,13 @@ class GestureListener extends Listener {
 			for (int i = 0; i < gestures.count(); i++) {
 				Gesture gesture = gestures.get(i);
 
-//				System.out.println("\nFinger count:  " + frame.fingers().extended().count());
-
 			}
 			frame = controller.frame();
 
 			gestures = frame.gestures();
 			cnt++;
 		}
-//		System.out.println("포문 끝");
+
 
 	}
 
